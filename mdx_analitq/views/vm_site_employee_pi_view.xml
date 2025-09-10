@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_vm_site_employee_pi_form" model="ir.ui.view">
+            <field name="name">vm.site.employee.pi.form</field>
+            <field name="model">vm.site.employee</field>
+            <field name="arch" type="xml">
+                <form string="PIs">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="surname"/>
+                        </group>
+                        <group groups="base.user_admin">
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="employee_type" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="view_vm_site_employee_pi_tree" model="ir.ui.view">
+            <field name="name">vm.site.employee.pi.tree</field>
+            <field name="model">vm.site.employee</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <list string="PIs">
+                    <field name="name"/>
+                    <field name="surname"/>
+                    <field name="phone" groups="base.user_admin"/>
+                    <field name="email" groups="base.user_admin"/>
+                    <field name="employee_type" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_vm_site_employee_pi_search" model="ir.ui.view">
+            <field name="name">vm.site.employee.pi.search</field>
+            <field name="model">vm.site.employee</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="PIs">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_open_vm_site_employee_pi_view">
+            <field name="name">PIs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vm.site.employee</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_vm_site_employee_pi_tree"/>
+            <field name="domain">[('employee_type','=', 'pi')]</field>
+            <field name="context">{'default_employee_type': 'pi'}</field>
+            <field name="search_view_id" ref="view_vm_site_employee_pi_search"/>
+        </record>
+
+
+        <menuitem id="menu_vm_site_employee_pi" name="PIs" action="act_open_vm_site_employee_pi_view" parent="project.menu_project_config" sequence="10" />
+    </data>
+</odoo>
+

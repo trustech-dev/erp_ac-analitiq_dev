@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="project_tracking_root" name="Project Tracking" sequence="1"
+        web_icon="mdx_analitq,static/description/tracking.png" />
+
+    <menuitem id="menu_project_tracking"
+        name="Project Tracking"
+        parent="project_tracking_root"
+        groups="base.group_user"
+        action="vm_project_tracking_action" />
+
+</odoo>

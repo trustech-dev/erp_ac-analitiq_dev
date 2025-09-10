@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_vm_site_employee_cra_form" model="ir.ui.view">
+            <field name="name">vm.site.employee.cra.form</field>
+            <field name="model">vm.site.employee</field>
+            <field name="arch" type="xml">
+                <form string="CRAs">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="surname"/>
+                        </group>
+                        <group groups="base.user_admin">
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="employee_type" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="view_vm_site_employee_cra_tree" model="ir.ui.view">
+            <field name="name">vm.site.employee.cra.tree</field>
+            <field name="model">vm.site.employee</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <list string="CRAs">
+                    <field name="name"/>
+                    <field name="surname"/>
+                    <field name="phone" groups="base.user_admin"/>
+                    <field name="email" groups="base.user_admin"/>
+                    <field name="employee_type" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_vm_site_employee_cra_search" model="ir.ui.view">
+            <field name="name">vm.site.employee.cra.search</field>
+            <field name="model">vm.site.employee</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="CRAs">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_open_vm_site_employee_cra_view">
+            <field name="name">CRAs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vm.site.employee</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_vm_site_employee_cra_search"/>
+            <field name="view_id" ref="view_vm_site_employee_cra_tree"/>
+            <field name="domain">[('employee_type','=', 'cra')]</field>
+            <field name="context">{'default_employee_type': 'cra'}</field>
+        </record>
+
+
+        <menuitem id="menu_vm_site_employee_cra" name="CRAs" action="act_open_vm_site_employee_cra_view" parent="project.menu_project_config" sequence="11" />
+    </data>
+</odoo>
+

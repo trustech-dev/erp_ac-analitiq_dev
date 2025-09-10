@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_view_form" model="ir.ui.view">
+            <field name="name">hr.employee.view.form.inherit.maintenance2</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="btn oe_stat_button" type="object" name="get_project_list" style="border-right: 1px solid;" icon="fa-newspaper-o">
+                        <field string="Projects" name="project_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="vm_project_tracking_action" model="ir.actions.act_window">
+            <field name="name">Project Tracking</field>
+            <field name="res_model">vm.project.tracking</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    Create New Project Tracking
+                </p>
+            </field>
+        </record>
+
+        <!-- List View (for Odoo 18) - Make sure this comes BEFORE the form view -->
+        <record id="vm_project_tracking_list" model="ir.ui.view">
+            <field name="name">vm.project.tracking.list</field>
+            <field name="model">vm.project.tracking</field>
+            <field name="priority">10</field>
+            <field name="arch" type="xml">
+                <list string="Project Tracking List">
+                    <field name="name" string="Protocol No"/>
+                    <field name="project_name" string="Project Name"/>
+                    <field name="sponsor_name" string="Sponsor"/>
+                    <field name="site_name" string="Site Name"/>
+                    <field name="site_status" string="Status"/>
+                    <field name="employee_id" string="Responsible"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- <record id="vm_project_tracking_form" model="ir.ui.view">
+            <field name="name">vm.project.tracking.form</field>
+            <field name="model">vm.project.tracking</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <form string="Project Tracking Form View">
+                    <sheet>
+                        <div class="oe_title">
+                            <label class="o_form_label o_edit_only" for="name" string="Protocol No"/>
+                            <h1><field name="name" placeholder="e.g. CNTO1959CRD3004"/></h1>
+                            <label class="o_form_label o_edit_only" for="project_name" string="Project Name"/>
+                            <h1><field name="project_name" placeholder="e.g. Graviti"/></h1>
+                            <field name="employee_id" invisible="1"/>
+                            <div name="options">
+                                <group colspan="4" col="4">
+                                    <div>
+                                        <field name="bool_primer"/>
+                                        <label for="bool_primer"/>
+                                    </div>
+                                    <div>
+                                        <field name="bool_backup"/>
+                                        <label for="bool_backup"/>
+                                    </div>
+                                    <div>
+                                        <field name="bool_blinded"/>
+                                        <label for="bool_blinded"/>
+                                    </div>
+                                    <div>
+                                        <field name="bool_unblinded"/>
+                                        <label for="bool_unblinded"/>
+                                    </div>
+                                </group>
+                            </div>
+                        </div>
+                        <group>
+                            <group id="header_left_group">
+                                <field name="sponsor_name" />
+                                <field name="site_name" />
+                                <field name="site_no" />
+                                <field name="indication" />
+                                <field name="site_status" widget="radio" />
+                            </group>
+                            <group id="header_right_group">
+                                <field name="date_siv" />
+                                <field name="date_cov" />
+                                <field name="patient_admission" />
+                                <field name="patient_count" />
+                                <field name="visit_frequency" />
+                            </group>
+                        </group>
+                        <br/>
+                        <group>
+                            <group id="header_left_group">
+                                <separator string="PI"/>
+                                <field name="pi_title" />
+                                <field name="pi_name" />
+                                <field name="pi_mobile" widget="phone"/>
+                                <field name="pi_mail" widget="email" />
+                            </group>
+                            <group id="header_right_group">
+                                <field name="pi_control" />
+                                <field name="pi_title2" invisible="pi_control != 'yes'"/>
+                                <field name="pi_name2" invisible="pi_control != 'yes'"/>
+                                <field name="pi_mobile2" widget="phone" invisible="pi_control != 'yes'"/>
+                                <field name="pi_mail2" widget="email" invisible="pi_control != 'yes'"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group id="header_left_group">
+                                <separator string="CRA"/>
+                                <field name="cra_name" />
+                                <field name="cra_mobile" widget="phone" />
+                                <field name="cra_mail" widget="email" />
+                            </group>
+                            <group id="header_right_group">
+                                <separator string="Notes"/>
+                                <field name="note" placeholder="Internal notes..."/>
+                            </group>
+                        </group>
+                        <field name="is_approved"/>
+                        <label for="is_approved"/>
+                    </sheet>
+                    <div class="o_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record> -->
+    </data>
+</odoo>

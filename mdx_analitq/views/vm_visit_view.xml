@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_vm_visit_type_tree" model="ir.ui.view">
+            <field name="name">vm.visit.type.tree</field>
+            <field name="model">vm.visit.type</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <list editable="top" string="Visit Types">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_vm_visit_type_form" model="ir.ui.view">
+            <field name="name">vm.visit.type.form</field>
+            <field name="model">vm.visit.type</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Visit Types">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vm_visit_type_search" model="ir.ui.view">
+            <field name="name">vm.visit.type.search</field>
+            <field name="model">vm.visit.type</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Visit Types">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_open_vm_visit_type_view">
+            <field name="name">Visit Types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vm.visit.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_vm_visit_type_search"/>
+        </record>
+
+
+        <menuitem id="menu_vm_visit_type" name="Visit Types" action="act_open_vm_visit_type_view" parent="project.menu_project_config" sequence="10" />
+    </data>
+</odoo>
+

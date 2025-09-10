@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_vm_patient_tree" model="ir.ui.view">
+            <field name="name">vm.patient.tree</field>
+            <field name="model">vm.patient</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <list string="Patients">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="task_id"/>
+                    <field name="site_employee_id"/>
+                     <field name="description"/>
+                    <field name="date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_vm_patient_form" model="ir.ui.view">
+            <field name="name">vm.patient.form</field>
+            <field name="model">vm.patient</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Patients">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id" options="{'no_create': True}"/>
+                            <field name="task_id" options="{'no_create': True}" domain="[('project_id', '=', project_id)]"/>
+                            <field name="site_employee_id" options="{'no_create': True}" />
+                            <field name="description"/>
+                            <field name="date"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vm_patient_search" model="ir.ui.view">
+            <field name="name">vm.patient.search</field>
+            <field name="model">vm.patient</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Patients">
+                    <field name="name"/>
+                    <field name="site_employee_id"/>
+                    <field name="description"/>
+                    <field name="project_id"/>
+                    <field name="task_id"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_open_vm_patient_view">
+            <field name="name">Patients</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vm.patient</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_vm_patient_search"/>
+        </record>
+
+
+        <menuitem id="menu_vm_patient" name="Patients" action="act_open_vm_patient_view" parent="project.menu_project_config" sequence="9" />
+    </data>
+</odoo>
+
