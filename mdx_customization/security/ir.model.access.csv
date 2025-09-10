@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_therapeutic_area_user,therapeutic.area.user,model_therapeutic_area,base.group_user,1,1,1,1
-access_therapeutic_area_manager,therapeutic.area.manager,model_therapeutic_area,base.group_system,1,1,1,1
-access_therapeutic_area_portal,therapeutic.area.portal,model_therapeutic_area,base.group_portal,1,0,0,0
-access_therapeutic_area_public,therapeutic.area.public,model_therapeutic_area,base.group_public,1,0,0,0
-access_indication_manager,indication.manager,model_indication,base.group_system,1,1,1,1
-access_indication,indication,model_indication,base.group_user,1,1,1,1
