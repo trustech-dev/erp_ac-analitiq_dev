@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_medex_tracking" model="ir.ui.view">
+        <field name="name">res.partner.form.medex.custom</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority" eval="25"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="attributes">
+                <attribute name="domain">['|',('is_site','=',True),('is_company','=',True)]</attribute>
+                <attribute name="string">Related Company/Site</attribute>
+            </field>
+            <xpath expr="//notebook" position="inside">
+                <page string="NDA Information" invisible="not is_company">
+                    <group>
+                        <field name="nda_no" placeholder="NDA No"/>
+                        <group>
+                            <field name="nda_effective"/>
+                            <field name="nda_end"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page name="medex" string="Company Restrictions">
+                    <group name="medex_project">
+                        <field name="site_no"
+                            invisible="1" />
+
+                        <group invisible="not is_site" required="is_site">
+                            <field name="site_no_medex"
+                                invisible="not is_site"
+                                required="is_site"
+                                string="Site No for Company"/>
+                        </group>
+
+                        <group invisible="not is_person">
+                            <field name="person_role" widget="radio"/>
+                        </group>
+
+                        <xpath expr="//field[@name='person_role']" position="after">
+                            <field name="therapeutic_area_ids" 
+                                invisible="not therapeutic_area_domain"
+                                string="Therapeutic Areas"
+                                placeholder="Select therapeutic areas"
+                                options="{'no_edit': True, 'no_create': True}"
+                                widget="many2many_tags"/>
+                                
+                            <field name="indication_ids" 
+                                invisible="not therapeutic_area_domain"
+                                string="Indications"
+                                placeholder="Select indications"
+                                options="{'no_edit': True, 'no_create': True}"
+                                widget="many2many_tags"/>
+                        </xpath>
+
+                        <group invisible="not is_company" string="Company Roles">
+                            <field name="is_sponsor" />
+                            <field name="is_sponsor_legal_representative"/>
+                            <field name="is_subcontract"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

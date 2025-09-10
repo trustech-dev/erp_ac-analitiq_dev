@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <delete id="project.menu_project_management_my_tasks" model="ir.ui.menu"/>
+  <delete id="project.menu_project_management_all_tasks" model="ir.ui.menu"/>
+   <menuitem name="Sites" id="project.menu_project_management" parent="project.menu_main_pm"
+      action="project.action_view_all_task" sequence="3"
+      groups="base.group_no_one,project.group_project_user"/>
+    <menuitem name="My Sites" id="project.menu_project_management_my_sites" parent="project.menu_project_management"
+      action="project.action_view_all_task" sequence="4"
+      groups="base.group_no_one,project.group_project_user"/>
+    <menuitem name="All Sites" id="project.menu_project_management_all_sites" parent="project.menu_project_management"
+      action="project.action_view_all_task" sequence="5"
+      groups="base.group_no_one,project.group_project_user"/>
+
+    <record id="edit_project_inherit" model="ir.ui.view">
+      <field name="name">project.project.form.inherit</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project"/>
+      <field name="arch" type="xml">
+        <xpath expr="//div[@class='oe_title']" position="replace">
+          <div class="oe_title">
+            <h1 class="d-flex flex-row">
+              <field name="name" placeholder="Protocol Code" required="True" style="font-size: min(4vw, 2.6rem);"/>
+            </h1>
+            <h2>
+              <field name="project_code" placeholder="Project Code"/>
+            </h2>
+          </div>
+        </xpath>
+        <xpath expr="//field[@name='user_id']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+        
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="user_id" widget="many2one_avatar_user" />
+        </xpath>
+
+        <xpath expr="//field[@name='date_start']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='date']" position="after">
+          <label for="project_patient_payable_amount"/>
+          <div name="amount_div" class="o_row">
+            <field name="project_patient_payable_amount" widget="monetary"/>
+            <field name="project_patient_payable_amount_currency_id"/>
+          </div>
+          <field name="service_fee" string="Service Fee (%)"/>
+        </xpath>
+      </field>
+    </record>
+</odoo>
