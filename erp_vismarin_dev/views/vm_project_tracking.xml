@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="vm_project_tracking_action" model="ir.actions.act_window">
+            <field name="name">Project Tracking</field>
+            <field name="res_model">vm.project.tracking</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create New Project Tracking
+                </p>
+            </field>
+        </record>
+
+        <record id="vm_project_tracking_form" model="ir.ui.view">
+            <field name="name">vm.project.tracking.form</field>
+            <field name="model">vm.project.tracking</field>
+            <field name="arch" type="xml">
+                <form string="Project Tracking Form View">
+                    <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" string="Protocol No" placeholder="e.g. CNTO1959CRD3004"/>
+                        </h1>
+                        <field name="project_name" string="Project Name" placeholder="e.g. Graviti"/>
+                    </div>
+                    <group string="Options">
+                        <group>
+                            <field name="bool_primer"/>
+                            <field name="bool_backup"/>
+                        </group>
+                        <group>
+                            <field name="bool_blinded"/>
+                            <field name="bool_unblinded"/>
+                        </group>
+                    </group>
+
+                    <group string="Project Details">
+                        <group string="Basic Information">
+                            <field name="sponsor_name" />
+                            <field name="site_name" />
+                            <field name="site_no" />
+                            <field name="indication" />
+                            <field name="site_status" widget="radio" />
+                        </group>
+                        <group string="Dates &amp; Statistics">
+                            <field name="date_siv" />
+                            <field name="date_cov" />
+                            <field name="patient_admission" />
+                            <field name="patient_count" />
+                            <field name="visit_frequency" />
+                        </group>
+                    </group>
+
+                    <group string="Principal Investigator (PI)">
+                        <group string="Primary PI">
+                            <field name="pi_title" />
+                            <field name="pi_name" />
+                            <field name="pi_mobile" widget="phone"/>
+                            <field name="pi_mail" widget="email" />
+                        </group>
+                        <group string="Secondary PI" invisible="pi_control != 'yes'">
+                            <field name="pi_title2" />
+                            <field name="pi_name2" />
+                            <field name="pi_mobile2" widget="phone"/>
+                            <field name="pi_mail2" widget="email" />
+                        </group>
+                    </group>
+
+                    <group string="Clinical Research Associate &amp; Notes">
+                        <group string="CRA Information">
+                            <field name="cra_name" />
+                            <field name="cra_mobile" widget="phone" />
+                            <field name="cra_mail" widget="email" />
+                        </group>
+                        <group string="Internal Notes">
+                            <field name="note" placeholder="Internal notes..." nolabel="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Approval">
+                        <field name="is_approved" widget="checkbox"/>
+                    </group>
+                    </sheet>
+                    <!-- <div class="oe_chatter" style="max-height: 400px; overflow-y: auto;">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"/>
+                    </div> -->
+                </form>
+            </field>
+        </record>
+        <record id="vm_project_tracking_tree_view" model="ir.ui.view">
+            <field name="name">vm.project.tracking.tree.view</field>
+            <field name="model">vm.project.tracking</field>
+            <field name="arch" type="xml">
+                <list string="Project Tracking Tree View">
+                    <field name="name"/>
+                    <field name="employee_id" />
+                </list>
+            </field>
+        </record>
+
+    </data>
+</odoo>

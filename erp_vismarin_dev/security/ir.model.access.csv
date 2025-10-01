@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vm_university,vm.university,model_vm_university,,1,1,1,1
+access_vm_department,vm.department,model_vm_department,,1,1,1,1
+access_vm_faculty,vm.faculty,model_vm_faculty,,1,1,1,1
+access_vm_patient,vm.patient,model_vm_patient,,1,1,1,1
+access_vm_site_employee,vm.site.employee,model_vm_site_employee,,1,1,1,1
+access_vm_indication,vm.indication,model_vm_indication,,1,1,1,1
+access_vm_visit_type,vm.visit.type,model_vm_visit_type,,1,1,1,1
+access_vm_expenses_report_wizard,vm.expenses.report.wizard,model_vm_expenses_report_wizard,,1,1,1,1
+access_vm_project_manager,vm.project.manager,model_vm_project_manager,,1,1,1,1
+access_vm_project_tracking,access.vm.project.detail,model_vm_project_tracking,group_vm_project_tracking_manager,1,1,1,1
+access_vm_project_tracking,access.vm.project.detail,model_vm_project_tracking,group_vm_project_tracking_user,1,1,1,1
+
+
+
+
+

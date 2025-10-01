@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_vm_indication_tree" model="ir.ui.view">
+            <field name="name">vm.indication.tree</field>
+            <field name="model">vm.indication</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <list editable="top" string="Indications">
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_vm_indication_form" model="ir.ui.view">
+            <field name="name">vm.indication.form</field>
+            <field name="model">vm.indication</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Indications">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vm_indication_search" model="ir.ui.view">
+            <field name="name">vm.indication.search</field>
+            <field name="model">vm.indication</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Indications">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="act_open_vm_indication_view">
+            <field name="name">Indications</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vm.indication</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_vm_indication_search"/>
+        </record>
+
+
+        <menuitem id="menu_vm_indication" name="Indications" action="act_open_vm_indication_view" parent="project.menu_project_config" sequence="20" />
+    </data>
+</odoo>

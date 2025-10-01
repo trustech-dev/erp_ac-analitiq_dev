@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_vm_faculty_tree" model="ir.ui.view">
+        <field name="name">vm.faculty.tree</field>
+        <field name="model">vm.faculty</field>
+        <field name="arch" type="xml">
+            <list string="Faculties">
+                <field name='title'/>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="mail"/>
+                <field name="university"/>
+                <field name="department"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="view_vm_faculty_form" model="ir.ui.view">
+        <field name="name">vm.faculty.form</field>
+        <field name="model">vm.faculty</field>
+        <field name="arch" type="xml">
+            <form string="Faculties">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="title" class="oe-edit-only"/>
+                        <h1>
+                            <field name='title'/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="university" options="{'no_create': True}"/>
+                            <field name="department" options="{'no_create': True}"/>
+
+
+                        </group>
+                        <group>
+                            <field name="phone" />
+                            <field name="mail" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh':'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_vm_faculty_search" model="ir.ui.view">
+        <field name="name">vm.faculty.search</field>
+        <field name="model">vm.faculty</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <search string="Faculties">
+                <field name="name" />
+                <field name="university" />
+                <field name="department" />
+
+                <group expand="1" string="Group By">
+                    <filter string="University" name="university" context="{'group_by':'university'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_vm_faculty_view">
+        <field name="res_model">vm.faculty</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_vm_faculty_tree"/>
+    </record>
+
+
+
+    <menuitem id="menu_faculty" name="Faculties" parent="project.menu_project_config" action="action_vm_faculty_view" sequence="9" />
+
+</odoo>

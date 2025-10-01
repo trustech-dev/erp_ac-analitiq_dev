@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_expenses_detail">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12"/>
+            <t t-set="data_report_header_spacing" t-value="9"/>
+            <t t-set="data_report_dpi" t-value="110"/>
+            <t t-call="web.external_layout">
+                <style type="text/css">
+                        .get-margin{
+                            margin-left:4.8rem;
+                        }
+                        .get-top-margin{
+                            margin-top:2rem;
+                        }
+                        table{
+                            border-collapse: collapse;
+                            margin:0 auto !important;
+                        }
+                        .tg {
+                            border-collapse: collapse;
+                            border-spacing: 0;
+                        }
+
+                        .tg td {
+                            border-color: black;
+                            border-style: solid;
+                            border-width: 1px;
+                            font-family: Arial, sans-serif;
+                            font-size: 14px;
+                            overflow: hidden;
+                            padding: 10px 5px;
+                            word-break: normal;
+                        }
+
+                        .tg th {
+                            border-color: black;
+                            border-style: solid;
+                            border-width: 1px;
+                            font-family: Arial, sans-serif;
+                            font-size: 14px;
+                            font-weight: normal;
+                            overflow: hidden;
+                            padding: 10px 5px;
+                            word-break: normal;
+                        }
+
+                        .tg .tg-b4ik {
+                            background-color: #e3e6e9;
+                            border-color: #ffffff;
+                            color: #000000;
+                            text-align: center;
+                            vertical-align: top
+                        }
+
+                        .tg .tg-aw21 {
+                            
+                            border-top:1px solid black;
+                            border-bottom:1px solid black;
+                            border-right:none;
+                            border-left:none;
+                            font-weight: bold;
+                            text-align: center;
+                            vertical-align: top
+                        }
+
+                        .tg .tg-c6tk {
+                            background-color: #e3e6e9;
+                            border-color: black;
+                            text-align: center;
+                            vertical-align: top
+                            border-bottom:1px solid black;
+                            border-right:none;
+                            border-left:none;
+                            
+                            }
+                </style>
+                <div class="page" style="margin-top:4rem ">
+                    <div class="row" >
+
+                        <div class="col-4 get-margin">
+                            <strong>Expenses Report</strong>
+                        </div>
+
+
+
+                        <div class="col-4">
+                            <strong>Report Time: </strong>
+                            <span t-esc="report_time"/>
+                        </div>
+
+
+                        <div class="col-4 ">
+                            <strong>Created By: </strong>
+                            <span t-esc="created_by"/>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="row mb32" style="margin-top:2rem">
+                        <div class="col-4 get-margin">
+                            <strong>State :</strong>
+                            <span t-if="data['state'] == 'draft'">To Submit</span>
+                            <span t-if="data['state'] == 'reported'">Submitted</span>
+                            <span t-if="data['state'] == 'approved'">Approved</span>
+                            <span t-if="data['state'] == 'done'">Paid</span>
+                            <span t-if="data['state'] == 'refused'">Refused</span>
+                        </div>
+                        <div class="col-4">
+                            <t t-if="data['date_from']">
+                                <strong>Date from :</strong>
+                                <span t-esc="data['date_from']"/>
+                                <br/>
+                            </t>
+                            <t t-if="data['date_to']">
+                                <strong>Date to :</strong>
+                                <span t-esc="data['date_to']"/>
+                            </t>
+                        </div>
+                        <div class="col-4">
+                            <t t-if="data['analytic_account_id']">
+                                <strong>Protocol :</strong>
+                                <span t-esc="data['analytic_account_id'][1]"/>
+                            </t>
+                        </div>
+                    </div>
+
+                    <t t-if="records">
+                        <t t-foreach="records" t-as="record">
+                            <div style="height:3rem"></div>
+                            <table class="tg" style="table-layout: fixed; width: 938px; ">
+                                <colgroup>
+                                    <col style="width: 152px;"/>
+                                    <col style="width: 152px"/>
+                                    <col style="width: 179px"/>
+                                    <col style="width: 152px"/>
+                                    <col style="width: 152px;"/>
+                                </colgroup>
+                                <thead >
+                                    <tr style="border-collapse:collapse; border:1px solid black; border-color:black;border-right:none;border-left:none;">
+                                        <td class="tg-aw21">
+                                            <span t-esc="record['name']"/>
+                                        </td>
+                                        <td class="tg-aw21">For All Expenses</td>
+                                        <td class="tg-aw21">Total  <span t-esc="record['total']" t-options="{'widget': 'monetary', 'display_currency': data['report_currency']}"/>
+                                        </td>
+                                        <td class="tg-aw21">Total with Profit Margin <span t-esc="record['total_with_margin']" t-options="{'widget': 'monetary', 'display_currency': data['report_currency']}"/>
+                                        </td>
+                                        <td class="tg-aw21"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <th class="tg-aw21">Date</th>
+                                        <th class="tg-aw21">Description</th>
+                                        <th class="tg-aw21">Taxes</th>
+                                        <th class="tg-aw21">Current Exchange Rate</th>
+                                        <th class="tg-aw21">Amount</th>
+                                        <th class="tg-aw21">Amount with Profit Margin</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    <tr t-foreach="record['expenses']" t-as="expense">
+                                        <td class="tg-c6tk">
+                                            <span style="font-weight:400;font-style:normal">
+                                                <span t-esc="expense['date']"/>
+                                            </span>
+                                        </td>
+                                        <td class="tg-c6tk">
+                                            <span t-esc="expense['name']"/>
+                                        </td>
+                                        <td class="tg-c6tk">
+                                            <span style="font-weight:400;font-style:normal">
+                                                <t t-if="expense['tax_ids']">
+                                                    <span t-esc="', '.join([ lt or '' for lt in expense['tax_ids'] ])"/>
+                                                </t>
+                                            </span>
+                                        </td>
+                                        <td class="tg-c6tk">
+                                            <span style="font-weight:400;font-style:normal">
+                                                <span t-esc="expense['rate']"/>
+                                            </span>
+                                        </td>
+                                        <td class="tg-c6tk">
+                                            <span style="font-weight:400;font-style:normal">
+                                                <span t-esc="expense['total_amount']" t-options="{'widget': 'monetary', 'display_currency': data['report_currency']}"/>
+                                            </span>
+                                        </td>
+                                        <td class="tg-c6tk">
+                                            <span style="font-weight:400;font-style:normal">
+                                                <span t-esc="expense['total_amount_with_margin']" t-options="{'widget': 'monetary', 'display_currency': data['report_currency']}"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </t>
+                    </t>
+                    <t t-else="">
+                    <div class="row mt32 get-margin get-top-margin" style="padding: 10px 5px;margin: 2rem 5px;border-collapse:collapse; border:1px solid black; border-color:black;border-right:none;border-left:none;">
+                        <strong >There is no any record!</strong>
+                    </div>
+                       
+                    </t>
+                </div>
+                <t t-if="records">
+                    <div class="row mt32 get-margin get-top-margin" style="padding: 10px 5px;margin: 2rem 5px;border-collapse:collapse; border:1px solid black; border-color:black;border-right:none;border-left:none;">
+                        <strong >Grand Total  <span t-esc="data['grand_total']" t-options="{'widget': 'monetary', 'display_currency': data['report_currency']}"/>
+                        </strong>
+                        <br/>
+                        <strong >Grand Total with Profit Margin <span t-esc="data['grand_total_with_margin']" t-options="{'widget': 'monetary', 'display_currency': data['report_currency']}"/>
+                        </strong>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="hr_expense_sheet_inherit" model="ir.ui.view">
+            <field name="name">hr.expense.sheet.form</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@name='employee_details']" position="after">
+                        <group name="medex_details">
+                            <field name="project_id" options="{'no_create': True}" />
+                            <field name="task_id" options="{'no_create': True}" />
+                            <field name="site_employee_id" options="{'no_create': True}" />
+                            <field name="patient_payable_amount" />
+                            <field name="expense_type" />
+                            <field name="payment_status" groups="erp_vismarin_dev.group_medex_payment_status" />
+                            <field name="analytic_account" invisible="1" />
+                        </group>
+                    </xpath>
+                    <xpath expr="//notebook/page[@name='expenses']/field[@name='expense_line_ids']" position="attributes">
+                        <attribute name="context">{'task_id':task_id}</attribute>
+                    </xpath>
+                    <!-- <xpath expr="//notebook/page[@name='expenses']/field[@name='expense_line_ids']/list/field[@name='sale_order_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//notebook/page[@name='expenses']/field[@name='expense_line_ids']/list/field[@name='sale_order_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath> -->
+                    <xpath expr="//notebook/page[@name='expenses']/field[@name='expense_line_ids']/list/button[@name='action_get_attachment_view']" position="attributes">
+                        <attribute name="states">done</attribute>
+                    </xpath>
+                    <!-- <xpath expr="//notebook/page[@name='expenses']/field[@name='expense_line_ids']/list/field[@name='attachment_number']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath> -->
+                    <xpath expr="//field[@name='user_id']" position="attributes">
+                        <attribute name="force_save">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='employee_id']" position="replace">
+                        <field name="employee_id" context="{'default_company_id': company_id}" widget="many2one_avatar_employee" options="{'no_create': True, 'no_create_edit':True}"/>
+                    </xpath>
+                    <xpath expr="//group/group[last()]" position="after">
+                        <group>
+                            <label for="is_approved" />
+                            <div>
+                                <field name="is_approved" readonly="state not in ['draft', 'submit']" />
+                            </div>
+                        </group>
+
+                        <group>
+                            <field name="note" 
+                                invisible="is_approved != 'no'"
+                                required="is_approved == 'no'"
+                                readonly="state not in ['draft', 'submit']" />
+                        </group>
+
+                    </xpath>
+                    <!-- <xpath expr="//notebook/page[@name='expenses']/field[@name='expense_line_ids']/tree/field[@name='tax_ids']" position="attributes">
+                         <attribute name="invisible">1</attribute>
+                    </xpath> -->
+                    <xpath expr="//notebook/page[@name='expenses']/field[@name='expense_line_ids']/list/field[@name='name']" position="after">
+                        <field name="visit_date" />
+                        <field name="is_blinded" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_expense_view_hr_expense_sheet_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.expense.sheet.tree.inherit</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_tree" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='state']" position="after">
+                        <field name="payment_status" optional="show" />
+                    </xpath>
+                    <xpath expr="//field[@name='total_amount']" position="after">
+                        <field name="patient_payable_amount" optional="show" decoration-bf="True" sum="Total Of Patient Payable Amount"/>
+                    </xpath>
+                    <xpath expr="//field[@name='accounting_date']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='accounting_date']" position="after">
+                        <field name="expense_type" optional="show" />
+                    </xpath>
+                    <xpath expr="//field[@name='accounting_date']" position="after">
+                        <field name="project_id" optional="show" />
+                    </xpath>
+                    <xpath expr="//field[@name='accounting_date']" position="after">
+                        <field name="partner_id" optional="show" />
+                    </xpath>
+                    <xpath expr="//field[@name='accounting_date']" position="after">
+                        <field name="create_date" optional="show" />
+                    </xpath>
+                    <xpath expr="//field[@name='company_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='employee_id']" position="before">
+                        <field name="id" optional="show" />
+                    </xpath>
+                    <xpath expr="//list" position="attributes">
+                        <attribute name="multi_edit">1</attribute>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_expense_inherit" model="ir.ui.view">
+            <field name="name">hr.expense.form</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//label[@for='name']" position="attributes">
+                        <attribute name="string">Visit Description</attribute>
+                    </xpath>
+                    <!-- <xpath expr="//field[@name='unit_amount']" position="attributes">
+                        <attribute name="string">Expense Amount</attribute>
+                    </xpath> -->
+                    <xpath expr="//label[@for='quantity']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//div[hasclass('o_row')]" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='product_id']" position="attributes">
+                        <attribute name="string">Expense Type</attribute>
+                        <attribute name="options">{'no_create': True}</attribute>
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='product_id']" position="after">
+                        <field name="patient_id" options="{'no_create': True}" />
+                    </xpath>
+                    <xpath expr="//field[@name='patient_id']" position="after">
+                        <field name="visit_date" options="{'no_create': True}" />
+                    </xpath>
+                    <xpath expr="//field[@name='visit_date']" position="after">
+                        <field name="investigator_id" options="{'no_create': True}" />
+                    </xpath>
+                    <xpath expr="//field[@name='investigator_id']" position="after">
+                        <field name="is_blinded" />
+                    </xpath>
+                    <xpath expr="//field[@name='patient_id']" position="attributes">
+                        <attribute name="readonly">product_id == 211</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='visit_date']" position="attributes">
+                        <attribute name="readonly">product_id == 211</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='payment_mode']" position="attributes">
+                        <attribute name="invisible">product_id == 211</attribute>
+                    </xpath>
+                    <!-- <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                        <attribute name="readonly">context.get('analytic_account_id')</attribute>
+                    </xpath> -->
+                </data>
+            </field>
+        </record>
+
+        <record id="hr_expense_sheet_view_inherit_search" model="ir.ui.view">
+            <field name="name">hr.expense.sheet.inherit.view.search</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_sheet_view_search" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//filter[@name='filter_accounting_date']" position="attributes">
+                        <attribute name="date">create_date</attribute>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

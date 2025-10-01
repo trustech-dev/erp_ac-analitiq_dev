@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="edit_project_inherit" model="ir.ui.view">
+        <field name="name">project.project.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="before">
+                <field name="indication_id"/>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="project_responsible_id" string="Project Responsible" 
+                    options="{'no_create': True}" widget="many2one_avatar_user" 
+                    readonly="active == False" domain="[('share', '=', False)]"/>            
+            </xpath>
+        </field>
+    </record>
+</odoo> 

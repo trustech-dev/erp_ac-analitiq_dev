@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data >
+        <record id="view_expenses_report_wizard_form" model="ir.ui.view">
+            <field name="name">vm.expenses.report.wizard.form</field>
+            <field name="model">vm.expenses.report.wizard</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <form string="Special Expenses Report">
+                    <div class="alert alert-warning alert-dismissible text-left" role="alert">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="Close">&amp;times;</a>
+                        <strong>
+                            <i class="fa fa-check" title = "check icon"/>
+
+                        </strong> Expense date is used for exchange rate information! 
+                    </div>
+                    <group>
+                        <group>
+                            <field name="state" widget="radio"/>
+
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="analytic_account_id"/>
+                            <field name="currency_id" options="{'no_create': True}"/>
+                            <field name="percentage"/>
+                        </group>
+                        <div>
+
+                        </div>
+
+                    </group>
+                    <group>
+                        <field name="employee_ids" widget="many2many_tags" string="Employees"/>
+                    </group>
+                    <group>
+                        <div class="row">
+                            <div class="col-3">
+                            </div>
+                            <div class="col-3">
+                                <strong>
+                                    <span> From </span>
+                                </strong>
+                                <field name="date_from"/>
+                            </div>
+                            <div class="col-3">
+                                <strong>
+                                    <span> To </span>
+                                </strong>
+                                <field name="date_to" />
+                            </div>
+                            <div class="col-3">
+                            </div>
+
+                        </div>
+                    </group>
+
+                    <footer>
+                        <button name="report_pdf" string="Print" type="object" default_focus="1" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_special_expenses_report_wizard">
+            <field name="name">Special Expenses Report</field>
+            <field name="res_model">vm.expenses.report.wizard</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_expenses_report_wizard_form" />
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_special_expenses_report" name="Special Expenses Report" sequence="10" parent="hr_expense.menu_hr_expense_reports" action="action_special_expenses_report_wizard" />
+
+
+
+    </data>
+
+
+</odoo>
